@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>My App :: Login</title>
+	<link rel="stylesheet" type="text/css" href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="@{/css/main.css}">
+</head>
+
+<body>
+
+	<div class="container">
+
+
+		<p>Wel-Come <b><span th:text="${nameuser}">nameuser</span></b> </p>
+      
+    <br>
+    <span "${message}">message</span>
+    <br>
+
+		<h2> You have Submited Response Successfully....!!!!!! </h2>
+
+	</div>
+	<script src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script src="@{/js/bootstrap.min.js}"></script>
+	<script src="@{/js/login.js}"></script>
+</body>
+
+</html>
