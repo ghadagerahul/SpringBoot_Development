@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login :: Error...!!!</title>
+<link rel="stylesheet" type="text/css" href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css" href="@{/css/main.css}">
+</head>
+
+<body>
+	<h1>My App</h1>
+	<div class="container">
+
+		<form id="userform" method="post" th:action="@{/authenticateLogin}"
+			th:object="${userForm1}" class="form-signin">
+			<h2 class="form-heading">Log In</h2>
+			
+             <span style="color: red" th:text="${invalidPass}">invalidPass</span> <br>
+             
+			<div>
+			    <span style="color: red" th:text="${errorMessage}">errorMessage</span> <br>
+				<input type="text" name="Username" placeholder="Username"></input>
+			</div>
+			<br />
+			<div>
+				<input type="email" name="email" placeholder="email"></input>
+			</div>
+			
+			<br /> <input name="password" id="password" type="password"
+				placeholder="Password" /> <br />
+			<br />
+			<button type="submit">Login</button>
+		</form>
+	</div>
+	<script src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script src="@{/js/bootstrap.min.js}"></script>
+	<script src="@{/js/login.js}"></script>
+</body>
+
+</html>

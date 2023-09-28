@@ -11,6 +11,8 @@ import com.spring.app.springfirstapp.model.UserLogin;
 @EnableJpaRepositories
 public interface UsersRepo extends JpaRepository<UserEntity, String> {
 
+
+
 	
 
 }

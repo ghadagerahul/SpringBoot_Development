@@ -26,6 +26,8 @@ public class UserEntity {
 	private String email;
 
 	private String mobileNo;
+	
+	private String confirmPassword;
 
 	public String getUsername() {
 		return Username;
@@ -59,10 +61,18 @@ public class UserEntity {
 		this.mobileNo = mobileNo;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	@Override
 	public String toString() {
-		return "UserLogin [Username=" + Username + ", password=" + password + ", email=" + email + ", mobileNo="
-				+ mobileNo + "]";
+		return "UserEntity [Username=" + Username + ", password=" + password + ", email=" + email + ", mobileNo="
+				+ mobileNo + ", confirmPassword=" + confirmPassword + "]";
 	}
 
 

@@ -16,4 +16,8 @@ public class UserRepoImpl {
 	public UserEntity saveUsersRepo(UserEntity user) {
 		return userRepo.save(user);
 	}
+	
+	public UserEntity getbyusernameEntity(String userName) {
+		return userRepo.getById(userName);
+	}
 }

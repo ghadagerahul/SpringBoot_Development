@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My App :: Login</title>
+<link rel="stylesheet" type="text/css" href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css" href="@{/css/main.css}">
+</head>
+
+<body>
+	<h1>My App</h1>
+	<div class="container">
+
+		<form id="userform" method="post" th:action="@{/authenticate}"
+			th:object="${userForm}" class="form-signin">
+			<h2 class="form-heading">Log In</h2>
+
+			<div>
+				<input type="text" name="Username" placeholder="Username"></input>
+			</div>
+			<br />
+			<div>
+				<input type="email" name="email" placeholder="email"></input>
+			</div>
+			<br />
+			<div>
+				<input type="number" name="mobileNo" placeholder="mobileNo"></input>
+			</div>
+			<br /> <input name="password" id="password" type="password"
+				placeholder="Password" /> <br />
+			
+			<br /> <input name="confirmPassword" id="confirmPassword" type="confirmPassword"
+				placeholder="confirmPassword" /> <br />
+			<br />
+			<button type="submit">Register</button>
+		</form>
+		<div> <p>If you are existing user <button type="button" th:onclick="|window.location.href='/login'|">login here</button>
+  </p> </div>
+	</div>
+	<script src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script src="@{/js/bootstrap.min.js}"></script>
+	<script src="@{/js/login.js}"></script>
+</body>
+
+</html>

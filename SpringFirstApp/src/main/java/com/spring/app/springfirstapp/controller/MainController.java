@@ -1,20 +1,18 @@
 package com.spring.app.springfirstapp.controller;
 
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.StringUtils;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.spring.app.springfirstapp.entity.UserEntity;
-import com.spring.app.springfirstapp.model.UserLogin;
-import com.spring.app.springfirstapp.repo.UsersRepo;
 import com.spring.app.springfirstapp.serviceImpl.UserRepoImpl;
 
 @Controller
@@ -22,44 +20,70 @@ public class MainController {
 
 	@Autowired
 	private UserRepoImpl repo;
-	
-    @RequestMapping("/wel")
-    public String welcomeMethod(Model model){
 
-     model.addAttribute("userForm", new UserLogin());
-    
-        
-        return "login.html";
+	Logger logHelper = LoggerFactory.getLogger(MainController.class);
 
-    }
-    
-    @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
-	public String authenticateMethod(@ModelAttribute UserEntity user, Model model) {
+// Registration user : start..............................
+	@RequestMapping("/Register")
+	public String welcomeMethod(Model model) {
+
+		model.addAttribute("userForm", new UserEntity());
+
+		return "register.html";
+
+	}
+
+	@RequestMapping(path = "/authenticate", method = RequestMethod.POST)
+	public String registerUser(@ModelAttribute UserEntity user, Model model) {
 
 		System.out.println(user.toString());
-		System.out.println("========== Submitted Resp==========");
+		System.out.println("========== Submitted Resp ==========");
 		model.addAttribute("nameuser", user.getUsername());
-		
+
 		repo.saveUsersRepo(user);
 		model.addAttribute("message", "mainMethod() Exicuted...........!!!");
 		System.out.println("mainMethod() Exicuted...........!!!");
 		return "done.html";
 
 	}
-  
-    
-    public  void mainMethod() {
-    	
-    	UserEntity entity = new UserEntity();
-    	entity.setUsername("Rahul");
-    	entity.setEmail("rahul@gmail.com");
-    	entity.setMobileNo("2334434334");
-    	entity.setPassword("myapp.123");
-    	
-    	
-    	
-    	
-    }
-    
-    
+// Registration user : end...........................
+
+// Login User:Start..................................
+	@RequestMapping("login")
+	public String loginUser(Model model) {
+
+		model.addAttribute("userForm1", new UserEntity());
+
+		return "login.html";
+	}
+
+	@RequestMapping("/authenticateLogin")
+	public String authenticateLoginUser(@ModelAttribute UserEntity user, Model model) {
+
+		String username = user.getUsername();
+		String password = user.getPassword();
+		UserEntity list = new UserEntity();
+
+		
+		
+		if (!StringUtils.isEmpty(username)) {
+			list = repo.getbyusernameEntity(username);
+			System.out.println(list.toString());
+			
+			if(StringUtils.equalsIgnoreCase(password, list.getPassword())){
+				return "dashboard.html";
+			}
+			model.addAttribute("invalidPass", "Invalid Usename / Password...!!!");
+			return "loginError.html";
+			
+		} else {
+			logHelper.info("UserNmae in null ....!!!!!!!!");
+			model.addAttribute("errorMessage", "Please Enter UserName.");
+		}
+		System.out.println(list.toString());
+
+		return "loginError.html";
+	}
+// Login User:End.........................................
+
 }
