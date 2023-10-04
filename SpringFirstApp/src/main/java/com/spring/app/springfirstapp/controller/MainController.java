@@ -58,7 +58,7 @@ public class MainController {
 	}
 
 	@RequestMapping("/authenticateLogin")
-	public String authenticateLoginUser(@ModelAttribute UserEntity user, Model model) {
+	public String authenticateLoginUser(@ModelAttribute UserEntity user, Model model) throws NullPointerException {
 
 		String username = user.getUsername();
 		String password = user.getPassword();
@@ -67,15 +67,25 @@ public class MainController {
 		
 		
 		if (!StringUtils.isEmpty(username)) {
-			list = repo.getbyusernameEntity(username);
+			try {
+				list = repo.getbyusernameEntity(username);
+				if(list == null) {
+					model.addAttribute("invalidPass", "User is Not Registered...!!!");
+					return "loginError.html";
+				}
+			} catch (Exception e) {
+				logHelper.info(e.getMessage());
+				model.addAttribute("invalidPass", "User is Not Registered...!!!");
+				return "loginError.html";
+			}
 			System.out.println(list.toString());
-			
-			if(StringUtils.equalsIgnoreCase(password, list.getPassword())){
+
+			if (StringUtils.equalsIgnoreCase(password, list.getPassword())) {
 				return "dashboard.html";
 			}
 			model.addAttribute("invalidPass", "Invalid Usename / Password...!!!");
 			return "loginError.html";
-			
+
 		} else {
 			logHelper.info("UserNmae in null ....!!!!!!!!");
 			model.addAttribute("errorMessage", "Please Enter UserName.");
